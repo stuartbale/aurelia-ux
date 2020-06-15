@@ -1,28 +1,28 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Tab = void 0;
+exports.UxTab = void 0;
 var tslib_1 = require("tslib");
 var aurelia_framework_1 = require("aurelia-framework");
-var Tab = /** @class */ (function () {
-    function Tab(element, container) {
+var UxTab = /** @class */ (function () {
+    function UxTab(element, container) {
         this.element = element;
         this.container = container;
         this.viewSlot = new aurelia_framework_1.ViewSlot(this.element, true);
     }
-    Tab.prototype.bind = function (bindingContext, overrideContext) {
+    UxTab.prototype.bind = function (bindingContext, overrideContext) {
         this.build();
         this.viewSlot.bind(bindingContext, overrideContext);
     };
-    Tab.prototype.attached = function () {
+    UxTab.prototype.attached = function () {
         this.viewSlot.attached();
     };
-    Tab.prototype.detached = function () {
+    UxTab.prototype.detached = function () {
         this.viewSlot.detached();
     };
-    Tab.prototype.unbind = function () {
+    UxTab.prototype.unbind = function () {
         this.viewSlot.unbind();
     };
-    Tab.prototype.build = function () {
+    UxTab.prototype.build = function () {
         if (this.built) {
             return;
         }
@@ -35,13 +35,16 @@ var Tab = /** @class */ (function () {
     };
     tslib_1.__decorate([
         aurelia_framework_1.bindable
-    ], Tab.prototype, "factory", void 0);
-    Tab = tslib_1.__decorate([
+    ], UxTab.prototype, "selected", void 0);
+    tslib_1.__decorate([
+        aurelia_framework_1.bindable
+    ], UxTab.prototype, "factory", void 0);
+    UxTab = tslib_1.__decorate([
         aurelia_framework_1.inject(Element, aurelia_framework_1.Container),
         aurelia_framework_1.customElement('ux-tab'),
         aurelia_framework_1.noView()
-    ], Tab);
-    return Tab;
+    ], UxTab);
+    return UxTab;
 }());
-exports.Tab = Tab;
+exports.UxTab = UxTab;
 //# sourceMappingURL=ux-tab.js.map

@@ -13,6 +13,4 @@ export function configure(config: FrameworkConfiguration, callback?: (config: Ux
 }
 
 export { UxTabs, UxDefaultTabsConfiguration };
-export { IUxTabsElement } from './i-ux-tabs-element';
-export { ITab } from './i-tab';
 export { UxTabsTheme } from './ux-tabs-theme';

@@ -1,7 +1,8 @@
 import { ViewSlot, ViewFactory, View, Container } from 'aurelia-framework';
-export declare class Tab {
+export declare class UxTab {
     private element;
     private container;
+    selected: boolean;
     constructor(element: Element, container: Container);
     viewSlot: ViewSlot;
     view: View;

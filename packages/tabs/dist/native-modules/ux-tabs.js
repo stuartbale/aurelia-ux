@@ -1,64 +1,21 @@
 import { __decorate } from "tslib";
-import { customElement, bindable, useView, PLATFORM, processContent, ViewCompiler, ViewResources, inject, Optional, Container, TaskQueue } from 'aurelia-framework';
+import { inject } from 'aurelia-dependency-injection';
+import { bindable, customElement, useView } from 'aurelia-templating';
 import { StyleEngine } from '@aurelia-ux/core';
+import { PLATFORM } from 'aurelia-pal';
 import { UxDefaultTabsConfiguration } from './ux-default-tabs-configuration';
-var id = 0;
-var templateLookup = {};
-var getNextNodeTemplateId = function () { return ++id; };
 var UxTabs = /** @class */ (function () {
-    function UxTabs(element, 
-    // private taskQueue: TaskQueue,
-    styleEngine, defaultConfiguration, container) {
+    function UxTabs(element, styleEngine) {
         this.element = element;
         this.styleEngine = styleEngine;
-        if (defaultConfiguration.theme) {
-            this.theme = defaultConfiguration.theme;
-        }
-        this.tabViewFactory = UxTabs_1.getTabFactory(element, container);
     }
     UxTabs_1 = UxTabs;
-    UxTabs.processContent = function (_viewCompiler, _resources, element, _instruction) {
-        var tab = element.querySelector('ux-tab');
-        if (tab) {
-            var nodeTemplateId = getNextNodeTemplateId();
-            element.setAttribute('data-template-id', nodeTemplateId.toString());
-            templateLookup[nodeTemplateId] = tab.innerHTML;
-        }
-        element.innerHTML = '';
-        return false;
-    };
-    /**
-     * @param element the host element of a <ux-tabs/>
-     * @param container the container associated with a <ux-tabs/>
-     */
-    UxTabs.getTabFactory = function (element, container) {
-        var parent = container.parent ? container.parent.get(Optional.of(UxTabs_1)) : null;
-        var isRoot = !parent;
-        // a root ux-tab means a consumer defined one
-        // this potentially contains the template for the tab
-        if (isRoot) {
-            var nodeTemplateId = element.getAttribute('data-template-id');
-            if (nodeTemplateId && templateLookup[nodeTemplateId]) {
-                var nodeTemplate = templateLookup[nodeTemplateId];
-                var nodeViewFactory = container.get(ViewCompiler)
-                    .compile("<template>" + nodeTemplate + "</template>", container.get(ViewResources));
-                return nodeViewFactory;
-            }
-            else {
-                // create a default <ux-tree-node/> factory
-                return container.get(ViewCompiler).compile('<template>${$node}</template>', container.get(ViewResources));
-            }
-        }
-        else {
-            // if it's not a root <ux-tabs/>
-            // assume that the parent has already built the node factory and simply get it from there
-            return parent.nodeViewFactory;
+    UxTabs.prototype.bind = function () {
+        if (this.theme != null) {
+            this.themeChanged(this.theme);
         }
     };
     UxTabs.prototype.themeChanged = function (newValue) {
-        if (newValue !== null && !newValue.themeKey) {
-            newValue.themeKey = 'tabs';
-        }
         this.styleEngine.applyTheme(newValue, this.element);
     };
     UxTabs.prototype.tabClicked = function (t) {
@@ -67,11 +24,11 @@ var UxTabs = /** @class */ (function () {
         }
         t.selected = true;
         this.selectedTab = t;
-        this.element.dispatchEvent(new CustomEvent(UxTabs_1.TAB_SELECTED_EVENT, { detail: { tab: t }, bubbles: true }));
+        this.dispatchEvent(UxTabs_1.TAB_SELECTED_EVENT, t);
         return true;
     };
-    UxTabs.prototype.dispatchEvent = function (type, node) {
-        this.element.dispatchEvent(new CustomEvent(type, { bubbles: true, detail: { node: node } }));
+    UxTabs.prototype.dispatchEvent = function (type, t) {
+        this.element.dispatchEvent(new CustomEvent(type, { bubbles: true, detail: { tab: t } }));
     };
     var UxTabs_1;
     UxTabs.TAB_SELECTED_EVENT = 'tab-selected';
@@ -82,10 +39,9 @@ var UxTabs = /** @class */ (function () {
         bindable
     ], UxTabs.prototype, "theme", void 0);
     UxTabs = UxTabs_1 = __decorate([
-        inject(Element, TaskQueue, StyleEngine, UxDefaultTabsConfiguration, Container),
+        inject(Element, StyleEngine, UxDefaultTabsConfiguration),
         customElement('ux-tabs'),
-        useView(PLATFORM.moduleName('./ux-tabs.html')),
-        processContent(UxTabs_1.processContent)
+        useView(PLATFORM.moduleName('./ux-tabs.html'))
     ], UxTabs);
     return UxTabs;
 }());

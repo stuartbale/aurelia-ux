@@ -1,25 +1,25 @@
 import { __decorate } from "tslib";
 import { inject, bindable, noView, ViewSlot, customElement, Container } from 'aurelia-framework';
-var Tab = /** @class */ (function () {
-    function Tab(element, container) {
+var UxTab = /** @class */ (function () {
+    function UxTab(element, container) {
         this.element = element;
         this.container = container;
         this.viewSlot = new ViewSlot(this.element, true);
     }
-    Tab.prototype.bind = function (bindingContext, overrideContext) {
+    UxTab.prototype.bind = function (bindingContext, overrideContext) {
         this.build();
         this.viewSlot.bind(bindingContext, overrideContext);
     };
-    Tab.prototype.attached = function () {
+    UxTab.prototype.attached = function () {
         this.viewSlot.attached();
     };
-    Tab.prototype.detached = function () {
+    UxTab.prototype.detached = function () {
         this.viewSlot.detached();
     };
-    Tab.prototype.unbind = function () {
+    UxTab.prototype.unbind = function () {
         this.viewSlot.unbind();
     };
-    Tab.prototype.build = function () {
+    UxTab.prototype.build = function () {
         if (this.built) {
             return;
         }
@@ -32,13 +32,16 @@ var Tab = /** @class */ (function () {
     };
     __decorate([
         bindable
-    ], Tab.prototype, "factory", void 0);
-    Tab = __decorate([
+    ], UxTab.prototype, "selected", void 0);
+    __decorate([
+        bindable
+    ], UxTab.prototype, "factory", void 0);
+    UxTab = __decorate([
         inject(Element, Container),
         customElement('ux-tab'),
         noView()
-    ], Tab);
-    return Tab;
+    ], UxTab);
+    return UxTab;
 }());
-export { Tab };
+export { UxTab };
 //# sourceMappingURL=ux-tab.js.map

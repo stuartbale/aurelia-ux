@@ -3,7 +3,9 @@ import { inject, bindable, noView, ViewSlot, customElement, ViewFactory, View, C
 @inject(Element, Container)
 @customElement('ux-tab')
 @noView()
-export class Tab {
+export class UxTab {
+  @bindable public selected: boolean;
+  
   constructor(private element: Element, private container: Container) {
     this.viewSlot = new ViewSlot(this.element, true);
   }

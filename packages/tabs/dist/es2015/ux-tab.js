@@ -1,7 +1,7 @@
 import { __decorate } from "tslib";
 import { inject, bindable, noView, ViewSlot, customElement, Container } from 'aurelia-framework';
-let Tab = /** @class */ (() => {
-    let Tab = class Tab {
+let UxTab = /** @class */ (() => {
+    let UxTab = class UxTab {
         constructor(element, container) {
             this.element = element;
             this.container = container;
@@ -34,13 +34,16 @@ let Tab = /** @class */ (() => {
     };
     __decorate([
         bindable
-    ], Tab.prototype, "factory", void 0);
-    Tab = __decorate([
+    ], UxTab.prototype, "selected", void 0);
+    __decorate([
+        bindable
+    ], UxTab.prototype, "factory", void 0);
+    UxTab = __decorate([
         inject(Element, Container),
         customElement('ux-tab'),
         noView()
-    ], Tab);
-    return Tab;
+    ], UxTab);
+    return UxTab;
 })();
-export { Tab };
+export { UxTab };
 //# sourceMappingURL=ux-tab.js.map

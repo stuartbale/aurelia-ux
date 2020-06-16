@@ -1,11 +1,42 @@
-<template role="tablist" class="ux-tabs">
+<!-- 
+Refer to:
+https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role
+https://material.io/components/tabs#anatomy
+-->
+
+<template class="ux-tabs">
+  <require from="@aurelia-ux/core/effects/paper-ripple.css"></require>
   <require from="./ux-tabs.css"></require>
-  <require from="./ux-tab"></require>
-  <slot></slot>
+  <div role="tablist">
+    <ul>
+      <li repeat.for="tab of tabs">
+        <button
+        role="tab" 
+        aria-selected.bind="selected & booleanAttr" 
+        aria-controls.bind="tab-panel" 
+        id.bind="id" 
+        tabindex.bind="tabindex"
+        click.delegate="tabClicked(tab)"
+        
+        >
+          <slot></slot>
+          <span class="ripple"></span>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div repeat.for="tab-panel of tab-panels"
+    role="tabpanel"
+    id.bind="id"
+    tabindex.bind="tabindex"
+    aria-labelledby.bind="aria-labelledby">
+    <slot></slot>
+  </div> 
 </template>
 
 
-<!-- <div class="tabs">
+<!-- 
+<div class="tabs">
   <div role="tablist" aria-label="Sample Tabs">
     <button role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1" tabindex="0">
           First Tab
@@ -26,4 +57,5 @@
   <div id="panel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3" hidden>
     <p>Content for the third panel</p>
   </div>
-</div> -->
+</div> 
+-->

@@ -86,6 +86,7 @@ module.exports = function ({ production = '', stats = 'errors-only' } = {}) {
           'sidenav',
           'slider',
           'switch',
+          'tabs',
           'textarea',
           'tree-view',
         ].reduce((map, packageName) => {

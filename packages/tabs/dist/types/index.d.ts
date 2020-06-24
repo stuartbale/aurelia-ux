@@ -1,5 +1,5 @@
 import { FrameworkConfiguration } from 'aurelia-framework';
-import { UxTab } from './ux-tab';
-export { UxTabTheme } from './ux-tab-theme';
-export { UxTab };
+import { UxTabs } from './ux-tabs';
+export { UxTabsTheme } from './ux-tabs-theme';
 export declare function configure(config: FrameworkConfiguration): void;
+export { UxTabs };

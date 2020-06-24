@@ -1,12 +1,10 @@
 import { FrameworkConfiguration, PLATFORM } from 'aurelia-framework';
-import { UxTab } from './ux-tab';
+import { UxTabs } from './ux-tabs';
 
-export { UxTabTheme } from './ux-tab-theme';
-export { UxTab };
+export { UxTabsTheme } from './ux-tabs-theme';
 
 export function configure(config: FrameworkConfiguration) {
-  config.globalResources([
-    PLATFORM.moduleName('./ux-tabs'),
-    PLATFORM.moduleName('./ux-tab')
-  ]);
+  config.globalResources(PLATFORM.moduleName('./ux-tabs'));
 }
+
+export { UxTabs };

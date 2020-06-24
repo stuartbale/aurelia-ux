@@ -1,14 +1,11 @@
-define(["require", "exports", "aurelia-framework", "./ux-tab", "./ux-tab-theme"], function (require, exports, aurelia_framework_1, ux_tab_1, ux_tab_theme_1) {
+define(["require", "exports", "aurelia-framework", "./ux-tabs", "./ux-tabs-theme"], function (require, exports, aurelia_framework_1, ux_tabs_1, ux_tabs_theme_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.configure = exports.UxTab = void 0;
-    Object.defineProperty(exports, "UxTab", { enumerable: true, get: function () { return ux_tab_1.UxTab; } });
-    Object.defineProperty(exports, "UxTabTheme", { enumerable: true, get: function () { return ux_tab_theme_1.UxTabTheme; } });
+    exports.UxTabs = exports.configure = void 0;
+    Object.defineProperty(exports, "UxTabs", { enumerable: true, get: function () { return ux_tabs_1.UxTabs; } });
+    Object.defineProperty(exports, "UxTabsTheme", { enumerable: true, get: function () { return ux_tabs_theme_1.UxTabsTheme; } });
     function configure(config) {
-        config.globalResources([
-            aurelia_framework_1.PLATFORM.moduleName('./ux-tabs'),
-            aurelia_framework_1.PLATFORM.moduleName('./ux-tab')
-        ]);
+        config.globalResources(aurelia_framework_1.PLATFORM.moduleName('./ux-tabs'));
     }
     exports.configure = configure;
 });

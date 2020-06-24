@@ -31,6 +31,7 @@
     "@aurelia-ux/select": "file:../packages/select",
     "@aurelia-ux/slider": "file:../packages/slider",
     "@aurelia-ux/switch": "file:../packages/switch",
+    "@aurelia-ux/tabs": "file:../packages/tabs",
     "@aurelia-ux/textarea": "file:../packages/textarea",
     "@aurelia-ux/tree-view": "file:../packages/tree-view",
     "aurelia-dependency-injection": "^1.5.2",

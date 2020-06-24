@@ -1,45 +1,69 @@
 import { __decorate } from "tslib";
-import { inject, bindable, noView, ViewSlot, customElement, Container } from 'aurelia-framework';
+import { customElement, bindable, observable, useView } from 'aurelia-framework';
+import { DOM, PLATFORM } from 'aurelia-pal';
+import { bindingMode } from 'aurelia-binding';
+import { inject } from 'aurelia-dependency-injection';
+import { StyleEngine } from '@aurelia-ux/core';
 var UxTab = /** @class */ (function () {
-    function UxTab(element, container) {
+    function UxTab(element, styleEngine) {
         this.element = element;
-        this.container = container;
-        this.viewSlot = new ViewSlot(this.element, true);
+        this.styleEngine = styleEngine;
+        this.variant = 'filled';
+        this.selectedIcon = 'check';
+        this.focused = false;
+        this.selected = undefined;
     }
-    UxTab.prototype.bind = function (bindingContext, overrideContext) {
-        this.build();
-        this.viewSlot.bind(bindingContext, overrideContext);
+    UxTab.prototype.bind = function () {
+        this.themeChanged(this.theme);
+        if (this.element.hasAttribute('deletable')) {
+            this.element.removeAttribute('deletable');
+            this.element.classList.add('ux-tab--deletable');
+        }
     };
     UxTab.prototype.attached = function () {
-        this.viewSlot.attached();
+        var _this = this;
+        this.isFocused = function () {
+            _this.focused = document.activeElement === _this.element;
+        };
+        window.addEventListener('focus', this.isFocused, true);
+        window.addEventListener('blur', this.isFocused, true);
     };
     UxTab.prototype.detached = function () {
-        this.viewSlot.detached();
+        window.removeEventListener('focus', this.isFocused, true);
+        window.removeEventListener('blur', this.isFocused, true);
     };
-    UxTab.prototype.unbind = function () {
-        this.viewSlot.unbind();
+    UxTab.prototype.themeChanged = function (newValue) {
+        if (newValue != null && newValue.themeKey == null) {
+            newValue.themeKey = 'tab';
+        }
+        this.styleEngine.applyTheme(newValue, this.element);
     };
-    UxTab.prototype.build = function () {
-        if (this.built) {
-            return;
+    UxTab.prototype.closeTab = function (event) {
+        if (event) {
+            event.stopPropagation();
         }
-        this.built = true;
-        if (!this.factory) {
-            return;
-        }
-        this.view = this.factory.create(this.container);
-        this.viewSlot.add(this.view);
+        var closeEvent = DOM.createCustomEvent('close', { bubbles: false });
+        this.element.dispatchEvent(closeEvent);
     };
     __decorate([
         bindable
+    ], UxTab.prototype, "theme", void 0);
+    __decorate([
+        bindable
+    ], UxTab.prototype, "variant", void 0);
+    __decorate([
+        bindable
+    ], UxTab.prototype, "selectedIcon", void 0);
+    __decorate([
+        observable
+    ], UxTab.prototype, "focused", void 0);
+    __decorate([
+        bindable({ defaultBindingMode: bindingMode.twoWay })
     ], UxTab.prototype, "selected", void 0);
-    __decorate([
-        bindable
-    ], UxTab.prototype, "factory", void 0);
     UxTab = __decorate([
-        inject(Element, Container),
+        inject(Element, StyleEngine),
         customElement('ux-tab'),
-        noView()
+        useView(PLATFORM.moduleName('./ux-tab.html'))
     ], UxTab);
     return UxTab;
 }());

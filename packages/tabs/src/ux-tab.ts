@@ -1,48 +1,66 @@
-import { inject, bindable, noView, ViewSlot, customElement, ViewFactory, View, Container } from 'aurelia-framework';
+import { customElement, bindable, observable, useView } from 'aurelia-framework';
+import { DOM, PLATFORM } from 'aurelia-pal';
+import { bindingMode } from 'aurelia-binding';
+import { inject } from 'aurelia-dependency-injection';
+import { StyleEngine, UxComponent } from '@aurelia-ux/core';
+import { UxTabTheme } from './ux-tab-theme';
 
-@inject(Element, Container)
+@inject(Element, StyleEngine)
 @customElement('ux-tab')
-@noView()
-export class UxTab {
-  @bindable public selected: boolean;
-  
-  constructor(private element: Element, private container: Container) {
-    this.viewSlot = new ViewSlot(this.element, true);
-  }
+@useView(PLATFORM.moduleName('./ux-tab.html'))
+export class UxTab implements UxComponent {
+  @bindable public theme: UxTabTheme;
+  @bindable public variant: 'filled' | 'outline' = 'filled';
+  @bindable public selectedIcon: string = 'check';
 
-  viewSlot: ViewSlot;
-  view: View;
+  @observable
+  public focused: boolean = false;
 
-  @bindable
-  factory: ViewFactory;
-  built: boolean;
+  @bindable({ defaultBindingMode: bindingMode.twoWay })
+  public selected: any = undefined;
 
-  bind(bindingContext: any, overrideContext: any) {
-    this.build();
-    this.viewSlot.bind(bindingContext, overrideContext);
-  }
+  private isFocused: () => void;
 
-  attached() {
-    this.viewSlot.attached();
-  }
+  constructor(
+    public element: HTMLInputElement,
+    private styleEngine: StyleEngine) { }
 
-  detached() {
-    this.viewSlot.detached();
-  }
+  public bind() {
+    this.themeChanged(this.theme);
 
-  unbind() {
-    this.viewSlot.unbind();
-  }
-
-  private build() {
-    if (this.built) {
-      return;
+    if (this.element.hasAttribute('deletable')) {
+      this.element.removeAttribute('deletable');
+      this.element.classList.add('ux-tab--deletable');
     }
-    this.built = true;
-    if (!this.factory) {
-      return;
+  }
+
+  public attached() {
+    this.isFocused = () => {
+      this.focused = document.activeElement === this.element;
+    };
+    window.addEventListener('focus', this.isFocused, true);
+    window.addEventListener('blur', this.isFocused, true);
+  }
+
+  public detached() {
+    window.removeEventListener('focus', this.isFocused, true);
+    window.removeEventListener('blur', this.isFocused, true);
+  }
+
+  public themeChanged(newValue: UxTabTheme) {
+    if (newValue != null && newValue.themeKey == null) {
+      newValue.themeKey = 'tab';
     }
-    this.view = this.factory.create(this.container);
-    this.viewSlot.add(this.view);
+
+    this.styleEngine.applyTheme(newValue, this.element);
+  }
+
+  public closeTab(event?: Event) {
+    if (event) {
+      event.stopPropagation();
+    }
+    const closeEvent = DOM.createCustomEvent('close', { bubbles: false });
+
+    this.element.dispatchEvent(closeEvent);
   }
 }

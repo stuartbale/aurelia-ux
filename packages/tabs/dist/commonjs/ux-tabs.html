@@ -5,34 +5,12 @@ https://material.io/components/tabs#anatomy
 -->
 
 <template class="ux-tabs">
-  <require from="@aurelia-ux/core/effects/paper-ripple.css"></require>
   <require from="./ux-tabs.css"></require>
-  <div role="tablist">
-    <ul>
-      <li repeat.for="tab of tabs">
-        <button
-        role="tab" 
-        aria-selected.bind="selected & booleanAttr" 
-        aria-controls.bind="tab-panel" 
-        id.bind="id" 
-        tabindex.bind="tabindex"
-        click.delegate="tabClicked(tab)"
-        
-        >
-          <slot></slot>
-          <span class="ripple"></span>
-        </button>
-      </li>
-    </ul>
-  </div>
-  <div repeat.for="tab-panel of tab-panels"
-    role="tabpanel"
-    id.bind="id"
-    tabindex.bind="tabindex"
-    aria-labelledby.bind="aria-labelledby">
     <slot></slot>
-  </div> 
-</template>
+  </template>
+  
+
+
 
 
 <!-- 

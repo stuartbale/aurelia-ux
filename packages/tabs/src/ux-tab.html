@@ -1,0 +1,16 @@
+<template
+  role="tab"
+  class="ux-tab ux-tab--${variant} ${focused ? 'ux-tab--focused' : ''} ${selected ? 'ux-tab--selected' : ''}">
+  <require from="./ux-tab.css"></require>
+
+  <span class="ux-tab__thumbnail">
+    <slot name="thumbnail"></slot>
+    <ux-icon icon="${selectedIcon}" class="ux_tab__selected_icon"></ux-icon>
+  </span>
+
+  <span class="ux-tab__content">
+    <slot></slot>
+  </span>
+
+  <span class="ux-tab__close" click.delegate="closeTab($event)"></span>
+</template>

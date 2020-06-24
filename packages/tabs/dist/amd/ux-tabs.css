@@ -1,19 +1,39 @@
-ux-tabs {
-  display: block;
-}
-
-ux-tabs .ux-tabs--tab {
-  display: -webkit-box;
-  display: -ms-flexbox;
+.ux-tabs {
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-wrap: wrap;
 }
 
-ux-tabs .ux-tabs--tab.ux-tabs--tab-selected {
-  background-color: #00000011;
-  background-color: var(--aurelia-ux--tabs-selected-background, #00000011);
+.ux-tabs .ux-tab {
+  /* display: inline-block; */
+  margin: 4px;
 }
 
-/*# sourceMappingURL=ux-tabs.css.map */
+.ux-tabs .ux-tab {
+  cursor: pointer;
+}
+
+/* .ux-tabs .ux-tab:first-child {
+  margin-left: 0px;
+} */
+
+/* TYPES */
+.ux-tabs--scroll {
+  overflow-x: auto;
+  flex-wrap: nowrap;
+}
+.ux-tabs--scroll .ux-tab {
+  margin-bottom: 0px;
+}
+.ux-tabs--stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.ux-tabs--stack .ux-tab {
+  margin-left: 0px;
+  margin-top: 8px;
+  margin-bottom: 0px;
+}
+.ux-tabs--stack .ux-tab:first-child {
+  margin-top: 0px;
+}

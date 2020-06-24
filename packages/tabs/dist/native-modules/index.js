@@ -1,15 +1,11 @@
 import { PLATFORM } from 'aurelia-framework';
-import { UxDefaultTabsConfiguration } from './ux-default-tabs-configuration';
-import { UxTabs } from './ux-tabs';
-export function configure(config, callback) {
+import { UxTab } from './ux-tab';
+export { UxTabTheme } from './ux-tab-theme';
+export { UxTab };
+export function configure(config) {
     config.globalResources([
-        PLATFORM.moduleName('./ux-tabs')
+        PLATFORM.moduleName('./ux-tabs'),
+        PLATFORM.moduleName('./ux-tab')
     ]);
-    if (typeof callback === 'function') {
-        var defaults = config.container.get(UxDefaultTabsConfiguration);
-        callback(defaults);
-    }
 }
-export { UxTabs, UxDefaultTabsConfiguration };
-export { UxTabsTheme } from './ux-tabs-theme';
 //# sourceMappingURL=index.js.map

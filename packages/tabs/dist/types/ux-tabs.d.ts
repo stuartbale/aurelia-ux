@@ -1,16 +1,11 @@
-import { UxComponent, StyleEngine } from '@aurelia-ux/core';
-import { UxTab } from './ux-tab';
+import { StyleEngine, UxComponent } from '@aurelia-ux/core';
 import { UxTabsTheme } from './ux-tabs-theme';
 export declare class UxTabs implements UxComponent {
-    element: HTMLElement;
+    private element;
     private styleEngine;
-    static TAB_SELECTED_EVENT: string;
-    tabs: UxTab[];
     theme: UxTabsTheme;
-    private selectedTab;
+    type: 'inline' | 'scroll' | 'stack';
     constructor(element: HTMLElement, styleEngine: StyleEngine);
     bind(): void;
-    themeChanged(newValue: any): void;
-    tabClicked(t: UxTab): boolean;
-    dispatchEvent(type: string, t: UxTab): void;
+    themeChanged(newValue: UxTabsTheme): void;
 }

@@ -2,47 +2,33 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UxTabs = void 0;
 var tslib_1 = require("tslib");
-var aurelia_dependency_injection_1 = require("aurelia-dependency-injection");
 var aurelia_templating_1 = require("aurelia-templating");
+var aurelia_dependency_injection_1 = require("aurelia-dependency-injection");
 var core_1 = require("@aurelia-ux/core");
 var aurelia_pal_1 = require("aurelia-pal");
-var ux_default_tabs_configuration_1 = require("./ux-default-tabs-configuration");
 var UxTabs = /** @class */ (function () {
     function UxTabs(element, styleEngine) {
         this.element = element;
         this.styleEngine = styleEngine;
+        this.type = 'inline';
     }
-    UxTabs_1 = UxTabs;
     UxTabs.prototype.bind = function () {
-        if (this.theme != null) {
-            this.themeChanged(this.theme);
-        }
+        this.themeChanged(this.theme);
     };
     UxTabs.prototype.themeChanged = function (newValue) {
+        if (newValue != null && newValue.themeKey == null) {
+            newValue.themeKey = 'tabs';
+        }
         this.styleEngine.applyTheme(newValue, this.element);
     };
-    UxTabs.prototype.tabClicked = function (t) {
-        if (this.selectedTab) {
-            this.selectedTab.selected = false;
-        }
-        t.selected = true;
-        this.selectedTab = t;
-        this.dispatchEvent(UxTabs_1.TAB_SELECTED_EVENT, t);
-        return true;
-    };
-    UxTabs.prototype.dispatchEvent = function (type, t) {
-        this.element.dispatchEvent(new CustomEvent(type, { bubbles: true, detail: { tab: t } }));
-    };
-    var UxTabs_1;
-    UxTabs.TAB_SELECTED_EVENT = 'tab-selected';
-    tslib_1.__decorate([
-        aurelia_templating_1.bindable
-    ], UxTabs.prototype, "tabs", void 0);
     tslib_1.__decorate([
         aurelia_templating_1.bindable
     ], UxTabs.prototype, "theme", void 0);
-    UxTabs = UxTabs_1 = tslib_1.__decorate([
-        aurelia_dependency_injection_1.inject(Element, core_1.StyleEngine, ux_default_tabs_configuration_1.UxDefaultTabsConfiguration),
+    tslib_1.__decorate([
+        aurelia_templating_1.bindable
+    ], UxTabs.prototype, "type", void 0);
+    UxTabs = tslib_1.__decorate([
+        aurelia_dependency_injection_1.inject(Element, core_1.StyleEngine),
         aurelia_templating_1.customElement('ux-tabs'),
         aurelia_templating_1.useView(aurelia_pal_1.PLATFORM.moduleName('./ux-tabs.html'))
     ], UxTabs);

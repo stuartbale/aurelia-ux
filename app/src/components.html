@@ -438,4 +438,14 @@
       <ux-tree-node>${$node.name}</ux-tree-node>
     </ux-tree-view>
   </section>
+
+  <section>
+    <h2>Tabs</h2>
+    <ux-tabs>
+      <ux-tab id="tab-id-1" label="Home" icon="house" clicked.delegate="onClick()"></ux-tab>
+      <ux-tab id="tab-id-2" label="Favourites" icon="heart" panel-id="panel-id-2"></ux-tab>
+      <ux-tab-panel id="tab-panel-id-2" >
+        <div>This is the content inside the Favourites tab</div>
+      </ux-tab-panel>    </ux-tabs>
+  </section>
 </template>

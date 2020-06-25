@@ -1,0 +1,8 @@
+<template role="tab"  class="ux-tab">
+    <require from="./ux-tabs.css"></require>
+    <ux-button type="text" size="medium" class="ux-tab--button" click.trigger="tabSelected()">
+    <ux-icon icon.bind="icon" if.bind="iconPosition && iconPosition != 'none'"></ux-icon>
+    ${label}
+    </ux-button>
+    <slot></slot>
+</template>

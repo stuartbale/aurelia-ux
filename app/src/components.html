@@ -441,12 +441,12 @@
 
   <section>
     <h2>Tabs</h2>
-    <ux-tabs ux-choice-container.bind="selectedTab">
-      <ux-tab id="tab-id-1" label="Home" icon="house" clicked.delegate="onClick()" ux-choice="home">Home</ux-tab>
-      <ux-tab id="tab-id-2" label="Favourites" icon="heart" panel-id="panel-id-2" ux-choice="faves">Faves</ux-tab>
+    <ux-tabs>
+      <ux-tab id="tab-id-1" label="Schedule" icon="schedule"></ux-tab>
+      <ux-tab id="tab-id-2" label="Search" icon="search" panel-id="panel-id-2"></ux-tab>
       <ux-tab-panel id="panel-id-2" >
-        <div>This is the content inside the Favourites tab</div>
-      </ux-tab-panel>    
+        <div>This is the content inside the Search tab</div>
+      </ux-tab-panel>
     </ux-tabs>
     <div>Selected Tab is: ${selectedTab}.</div>
   </section>

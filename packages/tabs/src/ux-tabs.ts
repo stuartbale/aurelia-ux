@@ -9,6 +9,7 @@ import { PLATFORM } from 'aurelia-framework';
 @useView(PLATFORM.moduleName('./ux-tabs.html'))
 export class UxTabs implements UxComponent {
   @bindable public theme: UxTabsTheme;
+  @bindable public iconPosition: string = 'leading'; // or none or top
 
   constructor(
     public element: HTMLElement,

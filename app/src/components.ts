@@ -22,4 +22,8 @@ export class Components {
   }
 
   public progressValue: number | undefined = 75;
+
+  public onTabClicked() {
+    this.selectedTab = 'next';
+  }
 }

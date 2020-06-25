@@ -1,0 +1,12 @@
+<template role="button">
+    <require from="@aurelia-ux/core/effects/paper-ripple.css"></require>
+    <require from="./ux-tabs.css"></require>
+    <button ref="button" class="ux-tab ${disabled ? 'ux-tab--disabled' : ''}"
+      mousedown.trigger="onMouseDown($event)"
+      mouseup.trigger="onMouseUp()"
+      mouseleave.trigger="onMouseUp()">
+      <slot></slot>
+      <span class="ripple"></span>
+    </button>
+  </template>
+  

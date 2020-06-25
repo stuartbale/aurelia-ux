@@ -9,6 +9,30 @@
   </section>
 
   <section>
+    <h2>Tabs</h2>
+    <ux-tabs>
+      <ux-tab id="tab-id-1" label="Interests" icon="schedule" panel-id="panel-id-1"></ux-tab>
+      <ux-tab id="tab-id-2" label="Ages" icon="search" panel-id="panel-id-2"></ux-tab>
+      <ux-tab-panel id="panel-id-1">
+              <label>Interests</label>
+              <ux-chip-list ux-choice-container.bind="interests">
+                <ux-chip ux-choice="sport">Sport</ux-chip>
+                <ux-chip ux-choice="technology">Technology</ux-chip>
+                <ux-chip ux-choice="business">Business</ux-chip>
+              </ux-chip-list>
+      </ux-tab-panel>
+      <ux-tab-panel id="panel-id-2">
+              <label>Ages</label>
+              <ux-chip-list ux-choice-container.bind="ageGroup">
+                <ux-chip ux-choice="0-20"><ux-icon icon="looks_one" slot="thumbnail"></ux-icon>0 - 20</ux-chip>
+                <ux-chip ux-choice="20-40"><ux-icon icon="looks_two" slot="thumbnail"></ux-icon>20 - 40</ux-chip>
+                <ux-chip ux-choice="40+"><ux-icon icon="looks_3" slot="thumbnail"></ux-icon>40+</ux-chip>
+              </ux-chip-list>
+      </ux-tab-panel>
+    </ux-tabs>
+  </section>
+
+  <section>
     <h2>Buttons</h2>
 
     <ux-grid class="ux-grid--remove-padding">
@@ -437,17 +461,5 @@
     <ux-tree-view nodes.bind="treeViewNodes">
       <ux-tree-node>${$node.name}</ux-tree-node>
     </ux-tree-view>
-  </section>
-
-  <section>
-    <h2>Tabs</h2>
-    <ux-tabs>
-      <ux-tab id="tab-id-1" label="Schedule" icon="schedule"></ux-tab>
-      <ux-tab id="tab-id-2" label="Search" icon="search" panel-id="panel-id-2"></ux-tab>
-      <ux-tab-panel id="panel-id-2" >
-        <div>This is the content inside the Search tab</div>
-      </ux-tab-panel>
-    </ux-tabs>
-    <div>Selected Tab is: ${selectedTab}.</div>
   </section>
 </template>

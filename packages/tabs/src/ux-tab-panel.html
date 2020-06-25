@@ -1,6 +1,6 @@
 <template role="tabpanel" class="ux-tab-panel">
     <require from="./ux-tabs.css"></require>
-    <div if.bind="visible">
+    <div ref="content">
         <slot></slot>
     </div>
 </template>

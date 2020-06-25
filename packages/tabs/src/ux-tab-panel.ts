@@ -10,8 +10,9 @@ import { PLATFORM } from 'aurelia-framework';
 export class UxTabPanel implements UxComponent {
 
     @bindable public visible: boolean = false;
-    @bindable public panelId: string = '';
     @bindable public theme: UxTabsTheme;
+    @bindable public id: string = '';
+    public content: HTMLElement;
 
     constructor(
         public element: HTMLElement,
@@ -19,6 +20,7 @@ export class UxTabPanel implements UxComponent {
 
     public bind() {
         this.themeChanged(this.theme);
+        this.visibleChanged(this.visible);
     }
 
     public themeChanged(newValue: any) {
@@ -30,11 +32,6 @@ export class UxTabPanel implements UxComponent {
     }
 
     public visibleChanged(newValue: boolean) {
-        console.log('the panel with id ' + this.panelId + ' visible was changed to ' + newValue);
-        /*  if (normalizeBooleanAttribute('disabled', newValue)) {
-           this.button.setAttribute('disabled', '');
-         } else {
-           this.button.removeAttribute('disabled');
-         } */
+        this.content.style.display = newValue ? 'block' : 'none';
     }
 }

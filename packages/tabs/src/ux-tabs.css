@@ -1,9 +1,10 @@
 .ux-tabs {
   display: flex;
-  flex-wrap: wrap;
 }
 
-ux-tab {
-  display: inline-block;
-  position: relative;
+.ux-tab {
+}
+
+.ux-tab-panels {
+  display: flex;
 }

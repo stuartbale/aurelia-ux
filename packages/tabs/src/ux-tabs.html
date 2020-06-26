@@ -4,11 +4,16 @@ https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role
 https://material.io/components/tabs#anatomy
 -->
 
-<template role="tablist" class="ux-tabs">
+<template >
   <require from="./ux-tabs.css"></require>
-   <slot></slot>
+  <require from="./ux-tab"></require>
+  <div role="tablist" class="ux-tabs">
+    <template replaceable part="tabs"></template>
+  </div>
+  <div class="ux-tab-panels">
+    <template replaceable part="panels"></template>
+  </div>
 </template>
-  
 
 
 

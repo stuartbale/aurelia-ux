@@ -41,7 +41,7 @@ export class UxTab implements UxComponent {
             this.selected = true;
         }
 
-        const tabPanels = Array.from(this.element!.parentElement!.querySelectorAll('ux-tab-panel'));
+        const tabPanels = Array.from(this.element!.parentElement!.parentElement!.querySelectorAll('ux-tab-panel'));
         tabPanels.map(x => (x as any).au['ux-tab-panel'].viewModel as UxTabPanel)
             .forEach(x => x.visible = x.id === this.panelId);
 }

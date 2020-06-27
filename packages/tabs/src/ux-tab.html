@@ -1,11 +1,8 @@
-<template role="tab" class="ux-tab">
+<template role="tab">
     <require from="./ux-tabs.css"></require>
-    <ux-button type="text" size="medium" class="ux-tab--button" click.trigger="tabSelected()">
-    <ux-icon icon.bind="icon" if.bind="iconPosition && iconPosition != 'none'"></ux-icon>
+    <ux-button type.bind="selected ? 'outline' : 'text'" size="medium" class="ux-tab--button" click.trigger="tabSelected()">
+    <ux-icon icon.bind="icon"></ux-icon>
     ${label}
     </ux-button>
-    <slot></slot>
-    <div class="ux-input-component--focused" if.bind="selected">
-        <div class="ux-input-component__border"></div>
-    </div>
+    <!-- <slot></slot> -->
 </template>

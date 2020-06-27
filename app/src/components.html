@@ -10,9 +10,14 @@
 
   <section>
     <h2>Tabs</h2>
+    <h4>Fixed Tabs with panels</h4>
     <ux-tabs>
-      <ux-tab label="Schedule" icon="schedule" panel-id="panel-id-1"></ux-tab>
-      <ux-tab label="Search" icon="search" panel-id="panel-id-2"></ux-tab>
+      <ux-tab-list type="fixed">
+        <ux-tab label="Schedule" icon="schedule" panel-id="panel-id-1"></ux-tab>
+        <ux-tab label="Search" icon="search" panel-id="panel-id-2"></ux-tab>
+        <ux-tab label="Alarm" icon="alarm" panel-id="panel-id-3"></ux-tab>
+        <ux-tab label="Rowing" icon="rowing" panel-id="panel-id-4"></ux-tab>
+      </ux-tab-list>
       <ux-tab-panel id="panel-id-1">
         <div>This is in the SCHEDULE panel.</div>
         <div>It has some content.</div>
@@ -20,6 +25,30 @@
       <ux-tab-panel id="panel-id-2">
         <div>This is in the SEARCH panel.</div>     
       </ux-tab-panel>
+      <ux-tab-panel id="panel-id-3">
+        <div>This is in the ALARM panel.</div>     
+      </ux-tab-panel>
+    </ux-tabs>
+    <h4>Scroll Tabs without panels</h4>
+    <ux-tabs>
+      <ux-tab-list type="scroll">
+        <ux-tab label="Very long tab 1" icon="schedule"></ux-tab>
+        <ux-tab label="Very long tab 2" icon="search"></ux-tab>
+        <ux-tab label="Very long tab 3" icon="alarm"></ux-tab>
+        <ux-tab label="Very long tab 4" icon="rowing"></ux-tab>
+        <ux-tab label="Very long tab 5" icon="rowing"></ux-tab>
+        <ux-tab label="Very long tab 6" icon="rowing"></ux-tab>
+        <ux-tab label="Very long tab 7" icon="rowing"></ux-tab>
+      </ux-tab-list>
+    </ux-tabs>
+    <h4>Cluster Tabs without panels</h4>
+    <ux-tabs>
+      <ux-tab-list type="cluster">
+        <ux-tab label="Schedule" icon="schedule" panel-id="panel-id-1"></ux-tab>
+        <ux-tab label="Search" icon="search" panel-id="panel-id-2"></ux-tab>
+        <ux-tab label="Alarm" icon="alarm" panel-id="panel-id-3"></ux-tab>
+        <ux-tab label="Rowing" icon="rowing" panel-id="panel-id-4"></ux-tab>
+      </ux-tab-list>
     </ux-tabs>
   </section>
 

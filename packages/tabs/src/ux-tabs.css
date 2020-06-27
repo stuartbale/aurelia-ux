@@ -1,10 +1,38 @@
-.ux-tabs {
+ux-tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+ux-tab-list {
+  display: flex;
+  flex-direction: row;
+}
+
+ux-tab-list.ux-tab-list__fixed {
+  justify-content: center;
+}
+
+ux-tab-list.ux-tab-list__fixed ux-tab {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+ux-tab-list.ux-tab-list__cluster {
+  justify-content: center;
+}
+
+ux-tab-list.ux-tab-list__scroll {
+  overflow-x: auto;
+}
+
+ux-tab-list.ux-tab-list__scroll::-webkit-scrollbar {
+  display: none;
+}
+
+ux-tab-panels {
   display: flex;
 }
 
-.ux-tab {
-}
-
-.ux-tab-panels {
-  display: flex;
+ux-tab .ux-tab--button{
+  width: 100%;
 }

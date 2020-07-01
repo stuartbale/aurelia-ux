@@ -10,6 +10,8 @@ import { StyleEngine, UxComponent } from '@aurelia-ux/core';
 export class UxTabs implements UxComponent {
   @bindable public activeTabId: string = '';
   @bindable public theme: UxTabsTheme;
+  @bindable public focusOnActivate: boolean = true;
+  @bindable public useAutomaticActivation: boolean = true;
 
   constructor(
     public element: HTMLElement,
@@ -28,7 +30,11 @@ export class UxTabs implements UxComponent {
       this.styleEngine.applyTheme(newValue, this.element);
   }
 
-  public showTab(tabId: string) {
+  public activateTab(tabId: string) {
     this.activeTabId = tabId;
+  }
+
+  public scrollIntoView(tabId: string) {
+    // TODO: Scroll the tab into view.
   }
 }

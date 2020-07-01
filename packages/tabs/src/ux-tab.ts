@@ -14,7 +14,8 @@ export class UxTab implements UxComponent {
     @bindable public label: string = '';
     @bindable public icon: string = '';
     @bindable public panelId: string = '';
-    @bindable public selected: boolean = false;
+    @bindable public active: boolean = false;
+    @bindable public focusOnActivate: boolean = true;
 
     constructor(
         public element: HTMLElement,
@@ -30,6 +31,20 @@ export class UxTab implements UxComponent {
         }
 
         this.styleEngine.applyTheme(newValue, this.element);
+    }
+
+    public activate() {
+        // TODO: Handle Activate
+        this.active = true;
+    }
+
+    public deactivate() {
+        // TODO: Handle Deactivate
+        this.active = false;
+    }
+
+    public focus() {
+        // TODO: Handle Focus
     }
 
     public tabSelected() {

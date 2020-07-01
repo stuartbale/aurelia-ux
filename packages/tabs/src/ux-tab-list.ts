@@ -8,11 +8,11 @@ import { PLATFORM } from 'aurelia-framework';
 @customElement('ux-tab-list')
 @useView(PLATFORM.moduleName('./ux-tab-list.html'))
 export class UxTabList implements UxComponent {
-
     @bindable public visible: boolean = false;
     @bindable public theme: UxTabsTheme;
     @bindable public id: string = '';
     @bindable public type: string = 'fixed'; // or cluster or scroll
+
     public content: HTMLElement;
 
     constructor(
@@ -29,5 +29,21 @@ export class UxTabList implements UxComponent {
         }
 
         this.styleEngine.applyTheme(newValue, this.element);
+    }
+
+  /**
+   * Increments the scroll value by the given amount
+   * @param scrollXIncrement The pixel value by which to increment the scroll value
+   */
+    public incrementScroll(scrollXIncrement: number) {
+    // this.foundation.incrementScroll(scrollXIncrement);
+    }
+
+  /**
+   * Scrolls to the given pixel position
+   * @param scrollX The pixel value to scroll to
+   */
+    public scrollTo(scrollX: number) {
+    // this.foundation.scrollTo(scrollX);
     }
 }

@@ -29,6 +29,13 @@ ux-tab-list.ux-tab-list__scroll::-webkit-scrollbar {
   display: none;
 }
 
+ux-tab-list .ux-tab-list-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background-color: black;
+}
+
 ux-tab-panels {
   display: flex;
 }

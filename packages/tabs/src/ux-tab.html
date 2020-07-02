@@ -1,6 +1,6 @@
-<template role="tab">
+<template role="tab" class="${selected ? 'selected' : ''} ${disabled ? 'disabled' : ''}">
     <require from="./ux-tabs.css"></require>
-    <ux-button type.bind="selected ? 'outline' : 'text'" size="medium" class="ux-tab--button" click.trigger="tabSelected()">
+    <ux-button type="text" size="medium" class="ux-tab--button">
     <ux-icon icon.bind="icon"></ux-icon>
     ${label}
     </ux-button>

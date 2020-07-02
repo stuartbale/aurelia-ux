@@ -2,7 +2,7 @@ import { customElement, bindable, useView } from 'aurelia-templating';
 import { inject } from 'aurelia-dependency-injection';
 import { StyleEngine, UxComponent } from '@aurelia-ux/core';
 import { UxTabsTheme } from './ux-tabs-theme';
-import { PLATFORM } from 'aurelia-framework';
+import { PLATFORM, bindingMode } from 'aurelia-framework';
 import { UxTabPanel } from './ux-tab-panel';
 
 @inject(Element, StyleEngine)
@@ -16,6 +16,7 @@ export class UxTab implements UxComponent {
     @bindable public panelId: string = '';
     @bindable public active: boolean = false;
     @bindable public focusOnActivate: boolean = true;
+    @bindable({ defaultBindingMode: bindingMode.twoWay }) public selected = false;
 
     constructor(
         public element: HTMLElement,

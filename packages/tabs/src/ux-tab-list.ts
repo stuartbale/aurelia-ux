@@ -12,12 +12,10 @@ import { UxTab } from './ux-tab';
 @customElement('ux-tab-list')
 @useView(PLATFORM.moduleName('./ux-tab-list.html'))
 export class UxTabList implements UxComponent {
-    @bindable public visible: boolean = false;
     @bindable public theme: UxTabsTheme;
-    @bindable public id: string = '';
+    @bindable public activePanelId: string = '';
     @bindable public type: string = 'fixed'; // or cluster or scroll
     @children('ux-tab') public tabs: UxTab[];
-    public view: View;
     private subscriptions: Disposable[] = [];
     private readonly cssClasses = {
         ACTIVE: 'ux-tab--indicator--active',
@@ -30,10 +28,6 @@ export class UxTabList implements UxComponent {
         public readonly resources: ViewResources,
         private readonly styleEngine: StyleEngine,
         private readonly bindingEngine: BindingEngine) { }
-
-    public created(_: any, myView: View) {
-        this.view = myView;
-    }
 
     public bind() {
         this.themeChanged(this.theme);
@@ -65,7 +59,6 @@ export class UxTabList implements UxComponent {
 
             this.subscriptions.push(subscription);
         });
-        // this.selection.setTabs(this.tabs);
     }
 
     private disposeSubscriptions() {
@@ -74,6 +67,7 @@ export class UxTabList implements UxComponent {
     }
 
     private tabSelected(selectedTab: UxTab) {
+        this.activePanelId = selectedTab.panelId;
         let previousIndicatorClientRect: DOMRect = new DOMRect();
         let previous: boolean = false;
         this.tabs.filter(tab => tab.selected && tab !== selectedTab)
@@ -104,15 +98,11 @@ export class UxTabList implements UxComponent {
         indicator.style.setProperty('transform', `translateX(${xPosition}px) scaleX(${widthDelta})`);
 
         // Force repaint before updating classes and transform to ensure the transform properly takes effect
-//        const newClientRect = indicator.getBoundingClientRect();
+        indicator.getBoundingClientRect();
 
         indicator.classList.remove(this.cssClasses.NO_TRANSITION);
         indicator.classList.add(this.cssClasses.ACTIVE);
 
         indicator.style.setProperty('transform', '');
-
-        // const tabPanels = Array.from(this.element!.parentElement!.parentElement!.querySelectorAll('ux-tab-panel'));
-        // tabPanels.map(x => (x as any).au['ux-tab-panel'].viewModel as UxTabPanel)
-        //     .forEach(x => x.visible = x.id === this.panelId);
     }
 }

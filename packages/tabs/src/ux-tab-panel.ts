@@ -8,11 +8,9 @@ import { PLATFORM } from 'aurelia-framework';
 @customElement('ux-tab-panel')
 @useView(PLATFORM.moduleName('./ux-tab-panel.html'))
 export class UxTabPanel implements UxComponent {
-
     @bindable public visible: boolean = false;
     @bindable public theme: UxTabsTheme;
     @bindable public id: string = '';
-    public content: HTMLElement;
 
     constructor(
         public element: HTMLElement,
@@ -20,7 +18,6 @@ export class UxTabPanel implements UxComponent {
 
     public bind() {
         this.themeChanged(this.theme);
-        this.visibleChanged(this.visible);
     }
 
     public themeChanged(newValue: any) {
@@ -29,9 +26,5 @@ export class UxTabPanel implements UxComponent {
         }
 
         this.styleEngine.applyTheme(newValue, this.element);
-    }
-
-    public visibleChanged(newValue: boolean) {
-        this.content.style.display = newValue ? 'block' : 'none';
     }
 }

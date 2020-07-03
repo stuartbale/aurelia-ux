@@ -2,11 +2,11 @@ import { customElement, bindable, useView } from 'aurelia-templating';
 import { inject } from 'aurelia-dependency-injection';
 import { StyleEngine, UxComponent } from '@aurelia-ux/core';
 import { UxTabsTheme } from './ux-tabs-theme';
-import { PLATFORM, ViewResources, View, children, BindingEngine } from 'aurelia-framework';
+import { PLATFORM, ViewResources, View, children, BindingEngine, Disposable } from 'aurelia-framework';
 import { UxTab } from './ux-tab';
-import { AutoSelectionStrategy, autoSelectionStrategies } from './auto-selection-strategy';
-import { SelectionManager } from './selection-manager';
-import { SelectionAnimator } from './selection-animator';
+// import { AutoSelectionStrategy, autoSelectionStrategies } from './auto-selection-strategy';
+// import { SelectionManager } from './selection-manager';
+// import { SelectionAnimator } from './selection-animator';
 
 @inject(Element, ViewResources, StyleEngine, BindingEngine)
 @customElement('ux-tab-list')
@@ -16,13 +16,14 @@ export class UxTabList implements UxComponent {
     @bindable public theme: UxTabsTheme;
     @bindable public id: string = '';
     @bindable public type: string = 'fixed'; // or cluster or scroll
-    @bindable private autoSelectUsing: string | AutoSelectionStrategy = autoSelectionStrategies.nearest;
     @children('ux-tab') public tabs: UxTab[];
     public view: View;
-    private selection: SelectionManager;
-    private animator = new SelectionAnimator(this.element);
-
-    public content: HTMLElement;
+    private subscriptions: Disposable[] = [];
+    private readonly cssClasses = {
+        ACTIVE: 'ux-tab--indicator--active',
+        FADE: 'ux-tab--indicator--fade',
+        NO_TRANSITION: 'ux-tab--indicator--no-transition',
+    };
 
     constructor(
         private readonly element: HTMLElement,
@@ -36,12 +37,10 @@ export class UxTabList implements UxComponent {
 
     public bind() {
         this.themeChanged(this.theme);
-        this.selection = new SelectionManager(this.bindingEngine, (oldTab: UxTab | null, newTab: UxTab | null) => {
-            if (oldTab && newTab) {
-                this.animator.transition(oldTab.element, newTab.element);
-            }
-        });
-        this.autoSelectUsingChanged();
+    }
+
+    public unbind() {
+        this.disposeSubscriptions();
     }
 
     public themeChanged(newValue: any) {
@@ -52,22 +51,68 @@ export class UxTabList implements UxComponent {
         this.styleEngine.applyTheme(newValue, this.element);
     }
 
-    public autoSelectUsingChanged() {
-        if (typeof this.autoSelectUsing === 'string') {
-            if (this.autoSelectUsing in autoSelectionStrategies) {
-                this.selection.autoSelectionStrategy = autoSelectionStrategies[this.autoSelectUsing];
-            }
-            // TODO else: log error?
-        } else {
-            this.selection.autoSelectionStrategy = this.autoSelectUsing as AutoSelectionStrategy;
-        }
-    }
-
     public tabsChanged() {
-        this.selection.setTabs(this.tabs);
+        this.disposeSubscriptions();
+        this.tabs.forEach(tab => {
+            const subscription = this.bindingEngine
+                .propertyObserver(tab, 'selected')
+                // tslint:disable-next-line:variable-name
+                .subscribe((newValue, _oldValue) => {
+                    if (newValue) {
+                        this.tabSelected(tab);
+                    }
+                });
+
+            this.subscriptions.push(subscription);
+        });
+        // this.selection.setTabs(this.tabs);
     }
 
-    public unbind() {
-        this.selection.dispose();
+    private disposeSubscriptions() {
+        this.subscriptions.forEach(subscription => { subscription.dispose(); });
+        this.subscriptions = [];
+    }
+
+    private tabSelected(selectedTab: UxTab) {
+        let previousIndicatorClientRect: DOMRect = new DOMRect();
+        let previous: boolean = false;
+        this.tabs.filter(tab => tab.selected && tab !== selectedTab)
+            .forEach(tab => {
+                previousIndicatorClientRect = tab.indicator.getBoundingClientRect();
+                previous = true;
+                tab.selected = false;
+                tab.indicator.classList.remove(this.cssClasses.ACTIVE);
+                tab.indicator.classList.remove(this.cssClasses.NO_TRANSITION);
+            });
+
+        const indicator = selectedTab.indicator;
+
+        // Early exit if no indicator is present to handle cases where an indicator
+        // may be activated without a prior indicator state
+        if (!previous) {
+            indicator.classList.add(this.cssClasses.ACTIVE);
+            return;
+        }
+
+        const currentClientRect = indicator.getBoundingClientRect();
+
+        // Calculate the dimensions based on the dimensions of the previous indicator
+        const widthDelta = previousIndicatorClientRect.width / currentClientRect.width;
+        const xPosition = previousIndicatorClientRect.left - currentClientRect.left;
+
+        indicator.classList.add(this.cssClasses.NO_TRANSITION);
+        indicator.style.setProperty('transform', `translateX(${xPosition}px) scaleX(${widthDelta})`);
+
+        // Force repaint before updating classes and transform to ensure the transform properly takes effect
+//        const newClientRect = indicator.getBoundingClientRect();
+
+        indicator.classList.remove(this.cssClasses.NO_TRANSITION);
+        indicator.classList.add(this.cssClasses.ACTIVE);
+
+        indicator.style.setProperty('transform', '');
+
+        // const tabPanels = Array.from(this.element!.parentElement!.parentElement!.querySelectorAll('ux-tab-panel'));
+        // tabPanels.map(x => (x as any).au['ux-tab-panel'].viewModel as UxTabPanel)
+        //     .forEach(x => x.visible = x.id === this.panelId);
     }
 }

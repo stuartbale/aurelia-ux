@@ -29,22 +29,39 @@ ux-tab-list.ux-tab-list__scroll::-webkit-scrollbar {
   display: none;
 }
 
-ux-tab-list .ux-tab-list-indicator {
-  position: absolute;
-  bottom: 0;
-  height: 2px;
-  background-color: black;
-}
-
 ux-tab-panels {
   display: flex;
+}
+
+ux-tab {
+  display: flex;
+  flex-direction: column;
 }
 
 ux-tab .ux-tab--button{
   width: 100%;
 }
 
+ux-tab .ux-tab--indicator{
+    width: 100%;
+    border-top-width: 2px;
+    border-top-style: solid;
+    pointer-events: none;
+    border-color: var(--aurelia-ux--design-primary);
+    z-index: 1;
+    opacity: 0;
+    transform-origin: left;
+    transition: 2500ms transform cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
+.ux-tab--indicator.ux-tab--indicator--active {
+  opacity: 1;
+}
+
+.ux-tab--indicator.ux-tab--indicator--no-transition {
+  transition: none;
+  opacity: 1;
+}
 
  .mdc-tab-bar {
   width: 100%;

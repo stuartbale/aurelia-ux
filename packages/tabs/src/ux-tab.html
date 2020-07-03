@@ -1,8 +1,10 @@
 <template role="tab" class="${selected ? 'selected' : ''} ${disabled ? 'disabled' : ''}">
     <require from="./ux-tabs.css"></require>
-    <ux-button type="text" size="medium" class="ux-tab--button">
+    <ux-button type="text" size="medium" class="ux-tab--button" click.trigger="clicked()">
     <ux-icon icon.bind="icon"></ux-icon>
     ${label}
     </ux-button>
+    <span class="ux-tab--indicator">
+    </span>
     <!-- <slot></slot> -->
 </template>
